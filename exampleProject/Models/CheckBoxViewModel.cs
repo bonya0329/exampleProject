@@ -5,11 +5,10 @@ using System.Threading.Tasks;
 
 namespace exampleProject.Models
 {
-    public class Student
+    public class CheckBoxViewModel
     {
-        public int StudentID { get; set; }
+        public int ID { get; set; }
         public string Name { get; set; }
-        public string SurName { get; set; }
-        public int Age { get; set; }
+        public bool Checked { get; set; }
     }
 }

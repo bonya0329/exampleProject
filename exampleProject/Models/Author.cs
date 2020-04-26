@@ -5,11 +5,12 @@ using System.Threading.Tasks;
 
 namespace exampleProject.Models
 {
-    public class Student
+    public class Author
     {
-        public int StudentID { get; set; }
+        public int AuthorID { get; set; }
         public string Name { get; set; }
         public string SurName { get; set; }
-        public int Age { get; set; }
+
+        public virtual ICollection<AuthorToBook> AuthorsToBooks { get; set; }
     }
 }

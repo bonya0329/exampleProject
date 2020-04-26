@@ -6,25 +6,26 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using exampleProject.Data;
+using exampleProject.Models;
 
-namespace exampleProject.Models
+namespace exampleProject.Controllers
 {
-    public class StudentsController : Controller
+    public class DepartmentsController : Controller
     {
         private readonly MyDBContext _context;
 
-        public StudentsController(MyDBContext context)
+        public DepartmentsController(MyDBContext context)
         {
             _context = context;
         }
 
-        // GET: Students
+        // GET: Departments
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Student.ToListAsync());
+            return View(await _context.Department.ToListAsync());
         }
 
-        // GET: Students/Details/5
+        // GET: Departments/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -32,39 +33,39 @@ namespace exampleProject.Models
                 return NotFound();
             }
 
-            var student = await _context.Student
-                .FirstOrDefaultAsync(m => m.StudentID == id);
-            if (student == null)
+            var department = await _context.Department
+                .FirstOrDefaultAsync(m => m.DepartmentID == id);
+            if (department == null)
             {
                 return NotFound();
             }
 
-            return View(student);
+            return View(department);
         }
 
-        // GET: Students/Create
+        // GET: Departments/Create
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: Students/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        // POST: Departments/Create
+        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
+        // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("StudentID,Name,SurName")] Student student)
+        public async Task<IActionResult> Create([Bind("DepartmentID,DepartmentName")] Department department)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(student);
+                _context.Add(department);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(student);
+            return View(department);
         }
 
-        // GET: Students/Edit/5
+        // GET: Departments/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -72,22 +73,22 @@ namespace exampleProject.Models
                 return NotFound();
             }
 
-            var student = await _context.Student.FindAsync(id);
-            if (student == null)
+            var department = await _context.Department.FindAsync(id);
+            if (department == null)
             {
                 return NotFound();
             }
-            return View(student);
+            return View(department);
         }
 
-        // POST: Students/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        // POST: Departments/Edit/5
+        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
+        // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("StudentID,Name,SurName")] Student student)
+        public async Task<IActionResult> Edit(int id, [Bind("DepartmentID,DepartmentName")] Department department)
         {
-            if (id != student.StudentID)
+            if (id != department.DepartmentID)
             {
                 return NotFound();
             }
@@ -96,12 +97,12 @@ namespace exampleProject.Models
             {
                 try
                 {
-                    _context.Update(student);
+                    _context.Update(department);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!StudentExists(student.StudentID))
+                    if (!DepartmentExists(department.DepartmentID))
                     {
                         return NotFound();
                     }
@@ -112,10 +113,10 @@ namespace exampleProject.Models
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(student);
+            return View(department);
         }
 
-        // GET: Students/Delete/5
+        // GET: Departments/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -123,30 +124,30 @@ namespace exampleProject.Models
                 return NotFound();
             }
 
-            var student = await _context.Student
-                .FirstOrDefaultAsync(m => m.StudentID == id);
-            if (student == null)
+            var department = await _context.Department
+                .FirstOrDefaultAsync(m => m.DepartmentID == id);
+            if (department == null)
             {
                 return NotFound();
             }
 
-            return View(student);
+            return View(department);
         }
 
-        // POST: Students/Delete/5
+        // POST: Departments/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var student = await _context.Student.FindAsync(id);
-            _context.Student.Remove(student);
+            var department = await _context.Department.FindAsync(id);
+            _context.Department.Remove(department);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool StudentExists(int id)
+        private bool DepartmentExists(int id)
         {
-            return _context.Student.Any(e => e.StudentID == id);
+            return _context.Department.Any(e => e.DepartmentID == id);
         }
     }
 }
