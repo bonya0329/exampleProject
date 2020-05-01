@@ -7,11 +7,14 @@ Entities:
     StudentID, Address, City, Country
 3.	***Employee***		
     EmployeeID, FirstName, LastName, DepartmentID, virtual Department Department
-4.	***Department***	
+4.	***Department***
+---
     DepartmentID, DepartmentName, ICollection<Employee> Employees
-5.	***Author***		
+5.	***Author***	
+---
     AuthorID, Name, SurName, ICollection<AuthorToBook> AuthorsToBooks
-6.	***Book***		
+6.	***Book***	
+---
     BookID, Title, ICollection<AuthorToBook> AuthorsToBooks
 7.	***AuthorToBook***	  
     AuthorToBookID, AuthorID, BookID, virtual Author Author, virtual Book Book
