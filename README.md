@@ -1,2 +1,1 @@
-# exampleProject
-Project milestone 2
+# Project milestone 2
