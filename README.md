@@ -1,6 +1,6 @@
 # Project milestone 2
 Akhmetova Bayan - CSSE-1701
-Entities:
+**Entities:**
 1.	***Student*** [StudentID, Name, SurName, Age, virtual StudentAddress StudentAddress]
 2.	***StudentAddress*** [StudentID, Address, City, Country]
 3.	***Employee*** [EmployeeID, FirstName, LastName, DepartmentID, virtual Department Department]
