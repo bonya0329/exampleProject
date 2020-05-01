@@ -11,3 +11,9 @@ Akhmetova Bayan - CSSE-1701
 7.	***AuthorToBook*** [AuthorToBookID, AuthorID, BookID, virtual Author Author, virtual Book Book]
 ***
 `Relationships:`
+- one to one:
+  - Student - StudentAddress
+- one to many:
+  - Employee - Department
+- many to many:
+  - Author - Book - AuthorToBook
