@@ -3,15 +3,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace exampleProject.Models
+namespace exampleProject.ViewModels
 {
-    public class Student
+    public class StudentViewModel
     {
-        public int StudentID { get; set; }
         public string Name { get; set; }
         public string SurName { get; set; }
         public int Age { get; set; }
-
-        public virtual StudentAddress StudentAddress { get; set; }
+        public string Address { get; set; }
+        public string City { get; set; }
+        public string Country { get; set; }
     }
 }

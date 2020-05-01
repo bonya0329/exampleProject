@@ -24,6 +24,7 @@ namespace exampleProject.Data
 
         public DbSet<exampleProject.Models.Book> Book { get; set; }
         public DbSet<exampleProject.Models.AuthorToBook> AuthorToBook { get; set; }
+        public DbSet<exampleProject.Models.StudentAddress> StudentAddress { get; set; }
         //public object AuthorToBook { get; internal set; }
 
     }
