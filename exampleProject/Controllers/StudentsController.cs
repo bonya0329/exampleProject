@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using exampleProject.Data;
 using exampleProject.Models;
+using System.ComponentModel.DataAnnotations;
 
 namespace exampleProject.Controllers
 {
@@ -18,7 +19,38 @@ namespace exampleProject.Controllers
         {
             _context = context;
         }
+        //Validation of string
+        public class OnlyStringAttribute : ValidationAttribute
+        {
+            protected override ValidationResult IsValid(object value, ValidationContext validationContext)
+            {
+                if (value != null)
+                {
+                    String stringValue = value.ToString();
+                    if (stringValue.Any(char.IsDigit) == false)
+                        return ValidationResult.Success;
+                }
 
+                return new ValidationResult("Only letters please");
+            }
+        }
+        //Validation of Age
+        public class OnlyNumbersAttribute : ValidationAttribute
+        {
+            protected override ValidationResult IsValid(object value, ValidationContext validationContext)
+            {
+                if (value != null)
+                {
+                    int result;
+                    String stringValue = value.ToString();
+                    if (int.TryParse(stringValue, out result))
+                        return ValidationResult.Success;
+                }
+
+                return new ValidationResult("Only numbers");
+            }
+        }
+       
         // GET: Students
         public async Task<IActionResult> Index()
         {

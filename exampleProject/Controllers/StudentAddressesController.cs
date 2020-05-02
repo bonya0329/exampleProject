@@ -18,7 +18,40 @@ namespace exampleProject.Controllers
         {
             _context = context;
         }
+        //Validation City
+        public IActionResult ValidateCity(string city)
+        {
+            bool result;
 
+            if (city == "Almaty" || city == "Nur-Sultan" || city == "Shymkent"
+                || city == "Taraz" || city == "Taldykorgan" || city == "Pavlodar"
+                || city == "Kyzylorda" || city == "Moskva")
+            {
+                result = true;
+            }
+            else
+            {
+                result = false;
+            }
+            return Json(result);
+        }
+        //Validation country
+        public IActionResult ValidateCountry(string country)
+        {
+            bool result;
+
+            if (country == "KZ" || country == "Kazakhstan" || country == "kazakhstan"
+                || country == "Russia" || country == "RU" || country == "russia"
+                || country == "USA" || country == "US")
+            {
+                result = true;
+            }
+            else
+            {
+                result = false;
+            }
+            return Json(result);
+        }
         // GET: StudentAddresses
         public async Task<IActionResult> Index()
         {
