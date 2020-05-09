@@ -10,6 +10,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.EntityFrameworkCore;
 using exampleProject.Data;
+using Microsoft.AspNetCore.Authentication.Cookies;
 
 namespace exampleProject
 {
@@ -29,6 +30,14 @@ namespace exampleProject
 
             services.AddDbContext<MyDBContext>(options =>
                     options.UseSqlServer(Configuration.GetConnectionString("MyDBContext")));
+            // установка конфигурации подключения
+            services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+                .AddCookie(options => //CookieAuthenticationOptions
+                {
+                    options.LoginPath = new Microsoft.AspNetCore.Http.PathString("/Account/Login");
+                    options.AccessDeniedPath = new Microsoft.AspNetCore.Http.PathString("/Account/Login");
+                });
+           
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -48,8 +57,9 @@ namespace exampleProject
             app.UseStaticFiles();
 
             app.UseRouting();
-
-            app.UseAuthorization();
+           
+            app.UseAuthentication();    // аутентификация
+            app.UseAuthorization();     // авторизация
 
             app.UseEndpoints(endpoints =>
             {
