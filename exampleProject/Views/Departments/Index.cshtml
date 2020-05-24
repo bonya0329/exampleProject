@@ -13,9 +13,11 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.DepartmentName)
+                Name
+            </th>            
+            <th>
+                Action
             </th>
-            <th></th>
         </tr>
     </thead>
     <tbody>
@@ -24,11 +26,21 @@
             <td>
                 @Html.DisplayFor(modelItem => item.DepartmentName)
             </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.DepartmentID">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.DepartmentID">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.DepartmentID">Delete</a>
-            </td>
+            
+            @if (User.IsInRole("user"))
+            {
+                <td>
+                    <a asp-action="Details" asp-route-id="@item.DepartmentID">Details</a>
+                </td>
+            }
+            @if (User.IsInRole("teacher"))
+            {
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.DepartmentID">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@item.DepartmentID">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@item.DepartmentID">Delete</a>
+                </td>
+            }
         </tr>
 }
     </tbody>

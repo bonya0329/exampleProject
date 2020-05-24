@@ -21,16 +21,18 @@ namespace exampleProject.Controllers
             _logger = logger;
         }
 
-        [Authorize(Roles = "admin, user")]
         public IActionResult Index()
         {
-            string role = User.FindFirst(x => x.Type == ClaimsIdentity.DefaultRoleClaimType).Value;
-            return Content($"ваша роль: {role}");
+            return View();
         }
-        [Authorize(Roles = "admin")]
+       
         public IActionResult About()
         {
-            return Content("Вход только для администратора");
+            return View();
+        }
+        public IActionResult Contact()
+        {
+            return View();
         }
 
         public IActionResult Privacy()

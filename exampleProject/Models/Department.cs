@@ -11,6 +11,7 @@ namespace exampleProject.Models
         public int DepartmentID { get; set; }
         [Required]
         public string DepartmentName { get; set; }
+       
         public virtual ICollection<Employee> Employees { get; set; }
     }
 }

@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using exampleProject.Data;
 using exampleProject.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace exampleProject.Controllers
 {
@@ -53,6 +54,7 @@ namespace exampleProject.Controllers
             return Json(result);
         }
         // GET: StudentAddresses
+        [Authorize(Roles = "admin")]
         public async Task<IActionResult> Index()
         {
             var myDBContext = _context.StudentAddress.Include(s => s.Student);
@@ -60,6 +62,7 @@ namespace exampleProject.Controllers
         }
 
         // GET: StudentAddresses/Details/5
+        [Authorize(Roles = "admin")]
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -79,6 +82,7 @@ namespace exampleProject.Controllers
         }
 
         // GET: StudentAddresses/Create
+        [Authorize(Roles = "admin")]
         public IActionResult Create()
         {
             ViewData["StudentID"] = new SelectList(_context.Student, "StudentID", "StudentID");
@@ -103,6 +107,7 @@ namespace exampleProject.Controllers
         }
 
         // GET: StudentAddresses/Edit/5
+        [Authorize(Roles = "admin")]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -156,6 +161,7 @@ namespace exampleProject.Controllers
         }
 
         // GET: StudentAddresses/Delete/5
+        [Authorize(Roles = "admin")]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)

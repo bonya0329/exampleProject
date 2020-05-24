@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using exampleProject.Data;
 using exampleProject.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace exampleProject.Controllers
 {
@@ -20,13 +21,27 @@ namespace exampleProject.Controllers
         }
 
         // GET: Employees
-        public async Task<IActionResult> Index()
+        
+        public async Task<IActionResult> Index(string searchString)
         {
-            var myDBContext = _context.Employee.Include(e => e.Department);
-            return View(await myDBContext.ToListAsync());
+            var Employees = from m in _context.Employee
+                            select m;
+
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                Employees = Employees.Where(s => s.Department.DepartmentName.Contains(searchString));
+                var myDBContext = Employees.Include(e => e.Department);
+                return View(myDBContext);
+            }
+            
+            else {
+                var myDBContext = _context.Employee.Include(e => e.Department);
+                return View(await myDBContext.ToListAsync());
+            }
         }
 
         // GET: Employees/Details/5
+        [Authorize(Roles = "admin")]
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -46,6 +61,7 @@ namespace exampleProject.Controllers
         }
 
         // GET: Employees/Create
+        [Authorize(Roles = "admin")]
         public IActionResult Create()
         {
             ViewData["DepartmentID"] = new SelectList(_context.Department, "DepartmentID", "DepartmentID");
@@ -70,6 +86,7 @@ namespace exampleProject.Controllers
         }
 
         // GET: Employees/Edit/5
+        [Authorize(Roles = "admin")]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -123,6 +140,7 @@ namespace exampleProject.Controllers
         }
 
         // GET: Employees/Delete/5
+        [Authorize(Roles = "admin")]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)

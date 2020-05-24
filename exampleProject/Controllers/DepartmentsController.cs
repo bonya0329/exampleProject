@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using exampleProject.Data;
 using exampleProject.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace exampleProject.Controllers
 {
@@ -20,12 +21,14 @@ namespace exampleProject.Controllers
         }
 
         // GET: Departments
+        
         public async Task<IActionResult> Index()
         {
             return View(await _context.Department.ToListAsync());
         }
 
         // GET: Departments/Details/5
+       
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -44,6 +47,7 @@ namespace exampleProject.Controllers
         }
 
         // GET: Departments/Create
+        [Authorize(Roles = "admin")]
         public IActionResult Create()
         {
             return View();
@@ -66,6 +70,7 @@ namespace exampleProject.Controllers
         }
 
         // GET: Departments/Edit/5
+        [Authorize(Roles = "admin")]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -117,6 +122,7 @@ namespace exampleProject.Controllers
         }
 
         // GET: Departments/Delete/5
+        [Authorize(Roles = "admin")]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)

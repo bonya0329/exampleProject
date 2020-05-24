@@ -23,6 +23,14 @@ namespace RolesApp.Controllers
         {
             return View();
         }
+
+        //[HttpPost]
+        public async Task<IActionResult> Logout()
+        {
+            await HttpContext.SignOutAsync();
+            return RedirectToAction("Index", "Home");
+        }
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Register(RegisterModel model)
@@ -78,15 +86,17 @@ namespace RolesApp.Controllers
         {
             // создаем один claim
             var claims = new List<Claim>
-            {
-                new Claim(ClaimsIdentity.DefaultNameClaimType, user.Email),
-                new Claim(ClaimsIdentity.DefaultRoleClaimType, user.Role?.Name)
-            };
+        {
+            new Claim(ClaimsIdentity.DefaultNameClaimType, user.Email),
+            new Claim(ClaimsIdentity.DefaultRoleClaimType, user.Role?.Name)
+        };
             // создаем объект ClaimsIdentity
             ClaimsIdentity id = new ClaimsIdentity(claims, "ApplicationCookie", ClaimsIdentity.DefaultNameClaimType,
                 ClaimsIdentity.DefaultRoleClaimType);
             // установка аутентификационных куки
             await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(id));
         }
+
+
     }
 }

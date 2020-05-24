@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using exampleProject.Data;
 using exampleProject.Models;
 using System.ComponentModel.DataAnnotations;
+using Microsoft.AspNetCore.Authorization;
 
 namespace exampleProject.Controllers
 {
@@ -50,14 +51,16 @@ namespace exampleProject.Controllers
                 return new ValidationResult("Only numbers");
             }
         }
-       
+
         // GET: Students
+        [Authorize(Roles = "admin")]
         public async Task<IActionResult> Index()
         {
             return View(await _context.Student.ToListAsync());
         }
 
         // GET: Students/Details/5
+        [Authorize(Roles = "admin")]
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -76,6 +79,7 @@ namespace exampleProject.Controllers
         }
 
         // GET: Students/Create
+        [Authorize(Roles = "admin")]
         public IActionResult Create()
         {
             return View();
@@ -98,6 +102,7 @@ namespace exampleProject.Controllers
         }
 
         // GET: Students/Edit/5
+        [Authorize(Roles = "admin")]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -149,6 +154,7 @@ namespace exampleProject.Controllers
         }
 
         // GET: Students/Delete/5
+        [Authorize(Roles = "admin")]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
